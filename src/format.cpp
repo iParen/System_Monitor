@@ -12,5 +12,5 @@ using std::to_string;
 string Format::ElapsedTime(long seconds) { 
     int value = seconds;
     double hours = seconds/3600;
-    int min = (seconds % 3600); // * 3600)/ 60;
+    int min = (seconds % 3600); // * 3600)/ 60; Test
     return string(to_string(value)+":"+to_string(hours)+":"+to_string(min)); }
