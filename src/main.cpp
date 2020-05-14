@@ -1,10 +1,14 @@
 #include "ncurses_display.h"
 #include "system.h"
 #include <iostream>
-#include "linux_parser.h"
+
+#include "linux_parser.h" // jft
+#include <vector>
 
 int main() {
-  std::cout << LinuxParser::User(1000) << "\n";
+  std::vector<int> vTest;
+  LinuxParser::Pids() = vTest;
+  std::cout << vTest[0] << "\n"; // Jft
   //System system;
   //NCursesDisplay::Display(system);
 }
