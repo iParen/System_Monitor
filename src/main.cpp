@@ -3,7 +3,11 @@
 #include <iostream>
 
 
+#include "linux_parser.h"
+
 int main() {
-  System system;
-  NCursesDisplay::Display(system);
+
+  std::cout << LinuxParser::Ram(1190) << "\n";
+ //System system;
+  //NCursesDisplay::Display(system);
 }

@@ -103,18 +103,34 @@ long LinuxParser::UpTime() {
   return 0; 
   }
 
-// TODO: Read and return the number of jiffies for the system
-long LinuxParser::Jiffies() { return 0; }
+// TODO: Read and return the number of jiffies for the system Done in processor.cpp
+//long LinuxParser::Jiffies() { return 0; }
 
 // TODO: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::ActiveJiffies(int pid[[maybe_unused]]) { return 0; }
+long LinuxParser::ActiveJiffies(int pid) { 
+  string line, buffer;
+  string spid = to_string(pid);
+  int count = 14;
+  long utime, stime, cutime, cstime;
+  std::ifstream stream(kProcDirectory + spid + kStatFilename);
+  if (stream.is_open()) {
+    std::getline(stream, line);
+    std::istringstream linestream(line);
+    while(--count) {
+      linestream >> buffer;
+    }
+    linestream >> utime >> stime >> cutime >> cstime;
+  } 
+  return utime+stime+cutime+cstime; 
+  }
 
-// TODO: Read and return the number of active jiffies for the system
-long LinuxParser::ActiveJiffies() { return 0; }
+
+// TODO: Read and return the number of active jiffies for the system don in processor.cpp
+//long LinuxParser::ActiveJiffies() { return 0; }
 
 // TODO: Read and return the number of idle jiffies for the system
-long LinuxParser::IdleJiffies() { return 0; }
+//long LinuxParser::IdleJiffies() { return 0; }
 
 // TODO: Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() { return {}; }
@@ -160,7 +176,23 @@ string LinuxParser::Command(int pid[[maybe_unused]]) { return string(); }
 
 // TODO: Read and return the memory used by a process
 // REMOVE: [[maybe_unused]] once you define the function
-string LinuxParser::Ram(int pid[[maybe_unused]]) { return string(); }
+string LinuxParser::Ram(int pid[[maybe_unused]]) { 
+  string spid = to_string(pid);
+  string line, variable;
+  float value;
+
+  std::ifstream stream(kProcDirectory + spid + kStatusFilename);
+  if(stream.is_open()) {
+    while (std::getline (stream, line)) {
+      std::istringstream linestream(line);
+      while (linestream >> variable >> value){
+        if(variable == "VmSize:")
+        return to_string(value/1000);
+      }
+    }
+  }
+  return to_string(value/1000); 
+  }
 
 // TODO: Read and return the user ID associated with a process
 // REMOVE: [[maybe_unused]] once you define the function
