@@ -7,7 +7,7 @@
 
 int main() {
 
-  std::cout << LinuxParser::Ram(1190) << "\n";
- //System system;
-  //NCursesDisplay::Display(system);
+  //std::cout << LinuxParser::UpTime(1145) << "\n";
+  System system;
+  NCursesDisplay::Display(system);
 }
