@@ -21,14 +21,14 @@ Processor& System::Cpu() { return cpu_; }
 vector<Process>& System::Processes() { 
     processes_.clear();
     vector<int> pids = LinuxParser::Pids();
-    set<Process> helperSet;
+    set<Process> set;
 
     for (int pid : pids) {
         Process proc(pid);
-        helperSet.insert(proc);
+        set.insert(proc);
     }
 
-    for(auto it=helperSet.rbegin(); it!=helperSet.rend(); ++it){
+    for(auto it=set.rbegin(); it!=set.rend(); ++it){
     this->processes_.emplace_back(*it);
     }
 
